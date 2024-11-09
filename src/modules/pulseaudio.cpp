@@ -160,14 +160,16 @@ namespace modules {
     if (m_unmute_on_scroll) {
       m_pulseaudio->set_mute(false);
     }
-    m_pulseaudio->inc_volume(m_interval);
+    std::string command = "pactl set-sink-volume @DEFAULT_SINK@ +" + std::to_string(m_interval) + "%";
+    system(command.c_str());
   }
 
   void pulseaudio_module::action_dec() {
     if (m_unmute_on_scroll) {
       m_pulseaudio->set_mute(false);
     }
-    m_pulseaudio->inc_volume(-m_interval);
+    std::string command = "pactl set-sink-volume @DEFAULT_SINK@ -" + std::to_string(m_interval) + "%";
+    system(command.c_str());
   }
 
   void pulseaudio_module::action_toggle() {
